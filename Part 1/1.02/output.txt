@@ -1,0 +1,20 @@
+henkka@DESKTOP-2BQP5AU:~/1.2$ kubectl create deployment web-server-dep --image=heka27/devops-kubernetes-uh-project:0.1
+deployment.apps/web-server-dep created
+henkka@DESKTOP-2BQP5AU:~/1.2$ kubectl set env deployment/web-server-dep PORT=8080
+deployment.apps/web-server-dep env updated
+henkka@DESKTOP-2BQP5AU:~/1.2$ kubectl get deployments
+NAME             READY   UP-TO-DATE   AVAILABLE   AGE
+web-server-dep   1/1     1            1           51s
+henkka@DESKTOP-2BQP5AU:~/1.2$ kubectl get pods
+NAME                              READY   STATUS        RESTARTS   AGE
+web-server-dep-5978f6586b-ch5mr   1/1     Terminating   0          55s
+web-server-dep-94b8b8f6c-rmvcs    1/1     Running       0          15s
+henkka@DESKTOP-2BQP5AU:~/1.2$ kubectl logs -f web-server-dep-94b8b8f6c-rmvcs
+Server started in port 8080
+henkka@DESKTOP-2BQP5AU:~/1.2$ kubectl set env deployment/web-server-dep PORT=3000
+deployment.apps/web-server-dep env updated
+henkka@DESKTOP-2BQP5AU:~/1.2$ kubectl get pods
+NAME                              READY   STATUS    RESTARTS   AGE
+web-server-dep-6b64667f5b-mpkjq   1/1     Running   0          109s
+henkka@DESKTOP-2BQP5AU:~/1.2$ kubectl logs -f web-server-dep-6b64667f5b-mpkjq
+Server started in port 3000
