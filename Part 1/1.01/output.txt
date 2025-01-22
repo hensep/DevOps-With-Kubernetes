@@ -1,0 +1,21 @@
+henkka@DESKTOP-2BQP5AU:~/log-output-app$ kubectl create deployment log-output-dep --image=heka27/log-output
+deployment.apps/log-output-dep created
+henkka@DESKTOP-2BQP5AU:~/log-output-app$ kubectl get deployments
+NAME             READY   UP-TO-DATE   AVAILABLE   AGE
+log-output-dep   1/1     1            1           16s
+henkka@DESKTOP-2BQP5AU:~/log-output-app$ kubectl get pods
+NAME                              READY   STATUS    RESTARTS   AGE
+log-output-dep-6fdccb8b69-bz6sk   1/1     Running   0          41s
+henkka@DESKTOP-2BQP5AU:~/log-output-app$ kubectl logs log-output-dep-6fdccb8b69-bz6sk
+2025-01-22T15:13:58.916Z: whxp5fsbsc01t4gjrlplth
+2025-01-22T15:14:03.774Z: whxp5fsbsc01t4gjrlplth
+2025-01-22T15:14:08.269Z: whxp5fsbsc01t4gjrlplth
+2025-01-22T15:14:12.763Z: whxp5fsbsc01t4gjrlplth
+2025-01-22T15:14:17.272Z: whxp5fsbsc01t4gjrlplth
+2025-01-22T15:14:22.016Z: whxp5fsbsc01t4gjrlplth
+2025-01-22T15:14:26.781Z: whxp5fsbsc01t4gjrlplth
+2025-01-22T15:14:31.272Z: whxp5fsbsc01t4gjrlplth
+2025-01-22T15:14:35.799Z: whxp5fsbsc01t4gjrlplth
+2025-01-22T15:14:40.309Z: whxp5fsbsc01t4gjrlplth
+2025-01-22T15:14:44.814Z: whxp5fsbsc01t4gjrlplth
+2025-01-22T15:14:49.305Z: whxp5fsbsc01t4gjrlplth
