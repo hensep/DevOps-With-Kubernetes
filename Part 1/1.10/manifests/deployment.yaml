@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-output-split-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: log-output-split
+  template:
+    metadata:
+      labels:
+        app: log-output-split
+    spec:
+      volumes: # Define volume
+        - name: shared-data
+          emptyDir: {}
+      containers:
+        - name: log-output-writer
+          image: heka27/log-output-writer:0.1
+          volumeMounts: # Mount volume
+          - name: shared-data
+            mountPath: /shared-data
+        - name: log-output-reader
+          image: heka27/log-output-reader:0.1
+          volumeMounts: # Mount volume
+          - name: shared-data
+            mountPath: /shared-data
