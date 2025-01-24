@@ -15,7 +15,6 @@ curl localhost:8081/pingpong
 pong 7
 curl localhost:8081/pingpong
 pong 8
-curl localhost:8081/pingpong
 curl localhost:8081/
 2025-01-24T17:21:20.565Z: 25822f7a4087e7e4c8a4b48e204a3226f05c810f4d4216ddf98956d519428ccb
 Ping / Pongs: 8
