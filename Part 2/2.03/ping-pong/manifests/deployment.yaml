@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namescape: applications
+  namespace: applications
   name: ping-pong-app-dep
 spec:
   replicas: 1
