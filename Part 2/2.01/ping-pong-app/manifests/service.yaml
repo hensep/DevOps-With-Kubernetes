@@ -9,5 +9,5 @@ spec:
     app: ping-pong-app
   ports:
   - protocol: TCP
-    port: 2345        # Port exposed internally within the cluster
-    targetPort: 3000  # Port the application is listening on
+    port: 2345
+    targetPort: 3000

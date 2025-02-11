@@ -16,7 +16,6 @@ spec:
       containers:
       - name: ping-pong-app
         image: heka27/ping-pong
-        imagePullPolicy: Always
         env:
         - name: PORT
           value: "3000"

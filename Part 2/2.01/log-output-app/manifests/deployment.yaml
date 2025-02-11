@@ -16,7 +16,8 @@ spec:
       containers:
       - name: log-output-app
         image: heka27/log-output
-        imagePullPolicy: Always
         env:
         - name: PORT
           value: "3000"
+        - name: PING_PONG_SERVICE_URL
+          value: "http://ping-pong-svc:2345"

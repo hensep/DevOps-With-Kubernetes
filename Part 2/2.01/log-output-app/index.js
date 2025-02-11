@@ -3,7 +3,7 @@ const axios = require('axios');
 const crypto = require('crypto');
 
 const app = express();
-const PING_PONG_SERVICE_URL = 'http://localhost:8081';
+const PING_PONG_SERVICE_URL = process.env.PING_PONG_SERVICE_URL || 'http://ping-pong-svc:2345';
 
 const generateHash = (data) => {
   return crypto.createHash('sha256').update(data).digest('hex');
@@ -11,13 +11,18 @@ const generateHash = (data) => {
 
 app.get('/', async (req, res) => {
   const timestamp = new Date().toISOString();
-  let requestCount = '5';
+  let requestCount = '0';
+
   try {
+    // Fetch the current counter value from the Ping-Pong app
     const response = await axios.get(`${PING_PONG_SERVICE_URL}/count`);
-    console.log('Response:', response.data);
-    requestCount = response.data.count;
+    requestCount = response.data.count.toString();
   } catch (err) {
-    console.error('Error fetching request count:', err);
+    console.error('Error fetching request count:', err.message);
+    if (err.response) {
+      console.error('Response data:', err.response.data);
+      console.error('Response status:', err.response.status);
+    }
   }
 
   const hash = generateHash(timestamp + requestCount);

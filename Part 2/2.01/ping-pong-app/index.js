@@ -13,7 +13,7 @@ app.get('/count', (req, res) => {
   res.json({ count: counter });
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Ping-Pong App started on port ${PORT}`);
 });
