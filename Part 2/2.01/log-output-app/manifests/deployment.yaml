@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: log-output-app-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: log-output-app
+  template:
+    metadata:
+      labels:
+        app: log-output-app
+    spec:
+      containers:
+      - name: log-output-app
+        image: heka27/log-output
+        imagePullPolicy: Always
+        env:
+        - name: PORT
+          value: "3000"
