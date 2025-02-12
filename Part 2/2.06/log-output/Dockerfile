@@ -1,0 +1,17 @@
+# Use Node.js-alpine as the base image
+FROM node:23-alpine
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the files
+COPY . .
+
+# Install dependencies
+RUN npm install
+
+# Expose the port where the server will run on
+EXPOSE 3000
+
+# Run the application
+CMD ["node", "index.js"]
