@@ -1,3 +1,5 @@
 node_modules/
 .env
+.age
 secret.yaml
+secrets.yaml
