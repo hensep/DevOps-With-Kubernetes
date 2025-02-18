@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.21.2",
+    "pg": "^8.13.3",
+    "pino": "^9.6.0",
+    "pino-loki": "^2.5.0"
+  }
+}
