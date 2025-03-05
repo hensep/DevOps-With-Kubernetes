@@ -23,12 +23,6 @@ volumeMounts:
 ```
 This will create a Postgres directory where the data will reside. subPaths also make it possible to use single volume for multiple purposes.
 ## Solution
-kubectl apply -f manifests/
-deployment.apps/ping-pong-app-dep created
-service/ping-pong-svc created
-service/postgres-svc created
-statefulset.apps/postgres created
-
 ```
 $kubectl apply -f manifests/
 deployment.apps/ping-pong-app-dep created
