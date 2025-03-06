@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  namespace: project
+  name: wikipedia-todo-cronjob
+spec:
+  schedule: "0 * * * *"  # Run every hour
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: wikipedia-todo-cronjob
+            image: heka27/wikipedia-todo-cronjob
+          restartPolicy: OnFailure
