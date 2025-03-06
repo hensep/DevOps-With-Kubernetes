@@ -41,10 +41,18 @@ jobs:
         project_id: '${{ env.PROJECT_ID }}'
         location: '${{ env.GKE_ZONE }}'
 
-    - name: Build
+    - name: Build todo-app
+      working-directory: Project/todo-app
       run: docker build --tag "europe-north1-docker.pkg.dev/$PROJECT_ID/$IMAGE:$BRANCH-$GITHUB_SHA" .
 
-    - name: Publish
+    - name: Build todo-backend
+      working-directory: Project/todo-backend
+      run: docker build --tag "europe-north1-docker.pkg.dev/$PROJECT_ID/$IMAGE:$BRANCH-$GITHUB_SHA" .
+
+    - name: Publish todo-app
+      run: docker push "europe-north1-docker.pkg.dev/$PROJECT_ID/$IMAGE:$BRANCH-$GITHUB_SHA"
+
+    - name: Publish todo-backend
       run: docker push "europe-north1-docker.pkg.dev/$PROJECT_ID/$IMAGE:$BRANCH-$GITHUB_SHA"
 
     - name: Set up Kustomize
