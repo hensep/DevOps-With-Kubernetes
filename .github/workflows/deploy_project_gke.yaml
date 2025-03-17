@@ -57,8 +57,15 @@ jobs:
 
     - name: Deploy
       run: |-
-        cd ./Part\ 3/3.03/
-        kustomize edit set image gcr.io/PROJECT_ID/IMAGE:TAG=gcr.io/$PROJECT_ID/$IMAGE:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
-        kustomize build . | kubectl apply -f -
-        kubectl rollout status deployment/$IMAGE
-        kubectl get services -o wide
+          cd Part\ 3/3.03
+          kubectl create namespace ${GITHUB_REF#refs/heads/} || true
+          kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
+          kustomize edit set namespace ${GITHUB_REF#refs/heads/}
+          kustomize edit set image gcr.io/PROJECT_ID/IMAGE-todo-app=gcr.io/$PROJECT_ID/$IMAGE-todo-app:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize edit set image gcr.io/PROJECT_ID/IMAGE-todo-backend=gcr.io/$PROJECT_ID/$IMAGE-todo-backend:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize edit set image gcr.io/PROJECT_ID/IMAGE-cronjob=gcr.io/$PROJECT_ID/$IMAGE-cronjob:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize build . | kubectl apply -f -
+          kubectl rollout status deployment $IMAGE-dep
+          kubectl rollout status deployment $IMAGE-backend-dep
+          kubectl get services -o wide
+          cd ..
