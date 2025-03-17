@@ -1,10 +1,11 @@
 name: Deploy Project to GKE
 
 on:
+  workflow_dispatch:
   push:
-    paths:
-      - "Part3/3.03/**"
-      - ".github/workflows/deploy_project_gke.yaml"
+      paths:
+        - "Part3/3.03/**"
+        - ".github/workflows/deploy_project_gke.yaml"
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
@@ -42,11 +43,11 @@ jobs:
         location: '${{ env.GKE_ZONE }}'
 
     - name: Build todo-app
-      working-directory: Project/todo-app
+      working-directory: Part 3/3.03/todo-app
       run: docker build --tag "europe-north1-docker.pkg.dev/$PROJECT_ID/$IMAGE:$BRANCH-$GITHUB_SHA" .
 
     - name: Build todo-backend
-      working-directory: Project/todo-backend
+      working-directory: Part 3/3.03/todo-backend
       run: docker build --tag "europe-north1-docker.pkg.dev/$PROJECT_ID/$IMAGE:$BRANCH-$GITHUB_SHA" .
 
     - name: Publish todo-app
