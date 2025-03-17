@@ -64,6 +64,6 @@ jobs:
           kustomize edit set image todo-app=gcr.io/$PROJECT_ID/$IMAGE-frontend:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
           kustomize edit set image todo-backend=gcr.io/$PROJECT_ID/$IMAGE-backend:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
           kustomize build . | kubectl apply -f -
-          kubectl rollout status deployment todo-app
-          kubectl rollout status deployment todo-backend
+          kubectl rollout status deployment todo-app-dep
+          kubectl rollout status deployment todo-backend-dep
           kubectl get services -o wide
