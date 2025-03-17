@@ -9,4 +9,4 @@ resources:
 - todo-backend/manifests/postgres-service.yaml
 - todo-backend/manifests/service.yaml
 - todo-backend/manifests/statefulset.yaml
-- todo-backend/secret.yaml
+- todo-backend/secrets.yaml
