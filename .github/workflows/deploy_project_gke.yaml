@@ -1,6 +1,7 @@
 name: Deploy Project to GKE
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'Part 3/3.03/**'
