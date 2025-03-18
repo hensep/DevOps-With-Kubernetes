@@ -6,7 +6,7 @@ resources:
 - todo-app/manifests/service.yaml
 - todo-backend/manifests/cronjob.yaml
 - todo-backend/manifests/deployment.yaml
-- todo-backend/manifests/postgres-service.yaml
 - todo-backend/manifests/service.yaml
+- todo-backend/manifests/postgres-service.yaml
 - todo-backend/manifests/statefulset.yaml
 - todo-backend/secrets.yaml
