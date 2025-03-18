@@ -6,6 +6,78 @@ If your pod uses a Persistent Volume Claim access mode ReadWriteOnce, you may ne
 If you are using Ingres, remember that it expects a service to give a successful response in the path / even if the service is mapped to some other path!
 
 ```
+name: Deploy Project to GKE
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/deploy_project_gke.yaml'
+
+env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
+  GKE_CLUSTER: dwk-cluster
+  GKE_ZONE: europe-north1-b
+  IMAGE: gke-project
+  BRANCH: ${{ github.ref_name }}
+
+jobs:
+  build-publish-deploy:
+    name: Build, Publish and Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - uses: google-github-actions/auth@v2
+      with:
+        credentials_json: '${{ secrets.GKE_SA_KEY }}'
+
+    - name: 'Set up Cloud SDK'
+      uses: google-github-actions/setup-gcloud@v2
+
+    - name: 'Use gcloud CLI'
+      run: gcloud info
+
+    - run: gcloud --quiet auth configure-docker
+
+    - name: 'Get GKE credentials'
+      uses: 'google-github-actions/get-gke-credentials@v2'
+      with:
+        cluster_name: '${{ env.GKE_CLUSTER }}'
+        project_id: '${{ env.PROJECT_ID }}'
+        location: '${{ env.GKE_ZONE }}'
+
+    - name: Build
+      run: |-
+        docker build -t "gcr.io/$PROJECT_ID/$IMAGE-todo-app:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" ./Part\ 3/3.03/todo-app
+        docker build -t "gcr.io/$PROJECT_ID/$IMAGE-todo-backend:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" ./Part\ 3/3.03/todo-backend
+        docker build -t "gcr.io/$PROJECT_ID/$IMAGE-cronjob:${GITHUB_REF#refs/heads/}-$GITHUB_SHA" ./Part\ 3/3.03/cronjob
+    - name: Publish
+      run: |-
+        docker push "gcr.io/$PROJECT_ID/$IMAGE-todo-app:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+        docker push "gcr.io/$PROJECT_ID/$IMAGE-todo-backend:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+        docker push "gcr.io/$PROJECT_ID/$IMAGE-cronjob:${GITHUB_REF#refs/heads/}-$GITHUB_SHA"
+    
+    - name: Set up Kustomize
+      uses: imranismail/setup-kustomize@v2.1.0
+
+    - name: Deploy
+      run: |-
+          cd Part\ 3/3.03
+          kubectl create namespace ${GITHUB_REF#refs/heads/} || true
+          kubectl config set-context --current --namespace=${GITHUB_REF#refs/heads/}
+          kustomize edit set namespace ${GITHUB_REF#refs/heads/}
+          kustomize edit set image todo-app=gcr.io/$PROJECT_ID/$IMAGE-frontend:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize edit set image todo-backend=gcr.io/$PROJECT_ID/$IMAGE-backend:${GITHUB_REF#refs/heads/}-$GITHUB_SHA
+          kustomize build . | kubectl apply -f -
+          kubectl rollout status deployment todo-app-dep
+          kubectl rollout status deployment todo-backend-dep
+          kubectl get services -o wide
+```
+
+```
 Run cd Part\ 3/3.03
   cd Part\ 3/3.03
   kubectl create namespace $***GITHUB_REF#refs/heads/*** || true
