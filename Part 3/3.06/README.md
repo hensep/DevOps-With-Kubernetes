@@ -1,5 +1,10 @@
+# Exercise 3.06: DBaaS vs DIY
+Do a pros/cons comparison of the solutions in terms of meaningful differences. This includes at least the required work and costs to initialize as well as the maintenance. Backup methods and their ease of usage should be considered as well.
+
+Write your answer in the README of the project.
+
 ## 1. Initialization
-DBaaS
+### DBaaS
 Pros:
 
 Quick Setup: DBaaS providers (e.g., AWS RDS, Google Cloud SQL, Azure SQL Database) offer pre-configured database instances that can be provisioned in minutes.
@@ -14,7 +19,7 @@ Limited Customization: You may be restricted to the configurations and features 
 
 Vendor Lock-in: Migrating to another provider or back to a DIY solution can be challenging.
 
-DIY
+### DIY
 Pros:
 
 Full Control: You can customize the database setup, including hardware, software, and configurations, to meet specific requirements.
@@ -28,7 +33,7 @@ Time-Consuming: Requires significant effort to set up servers, install and confi
 Complexity: Requires expertise in database administration, networking, and infrastructure management.
 
 ## 2. Maintenance
-DBaaS
+### DBaaS
 Pros:
 
 Automated Maintenance: Providers handle patching, updates, and backups automatically.
@@ -43,7 +48,7 @@ Limited Control: You rely on the provider for maintenance schedules and updates.
 
 Performance Tuning: Limited ability to fine-tune performance compared to DIY.
 
-DIY
+### DIY
 Pros:
 
 Full Control: You can optimize performance, apply custom patches, and schedule maintenance as needed.
@@ -59,7 +64,7 @@ Expertise Required: Needs skilled database administrators (DBAs) to manage the s
 Downtime Risk: Manual maintenance can lead to downtime if not handled properly.
 
 ## 3. Costs
-DBaaS
+### DBaaS
 Pros:
 
 Predictable Pricing: Pay-as-you-go or subscription-based pricing models.
@@ -74,7 +79,7 @@ Ongoing Costs: Continuous subscription fees can add up over time.
 
 Hidden Costs: Additional charges for storage, backups, and scaling.
 
-DIY
+### DIY
 Pros:
 
 Lower Long-Term Costs: If managed efficiently, DIY can be cheaper in the long run, especially for large-scale deployments.
@@ -88,7 +93,7 @@ High Initial Costs: Requires investment in hardware, software licenses, and skil
 Operational Costs: Ongoing costs for maintenance, monitoring, and scaling.
 
 ## 4. Backup and Recovery
-DBaaS
+### DBaaS
 Pros:
 
 Automated Backups: Most DBaaS providers offer automated, scheduled backups with retention policies.
@@ -103,7 +108,7 @@ Limited Control: Backup schedules and retention policies are determined by the p
 
 Vendor-Specific Tools: Backup and recovery tools are tied to the provider’s ecosystem.
 
-DIY
+### DIY
 Pros:
 
 Full Control: You can implement custom backup strategies (e.g., incremental, differential) and retention policies.
@@ -119,7 +124,7 @@ Risk of Errors: Manual backups can lead to data loss if not handled properly.
 Disaster Recovery Complexity: Implementing replication and failover requires additional effort and expertise.
 
 ## 5. Ease of Use
-DBaaS
+### DBaaS
 Pros:
 
 User-Friendly: Managed services provide intuitive dashboards and APIs for easy management.
@@ -130,7 +135,7 @@ Cons:
 
 Limited Advanced Features: May lack advanced customization options for complex use cases.
 
-DIY
+### DIY
 Pros:
 
 Customizability: Tailor the database to specific needs and workflows.
